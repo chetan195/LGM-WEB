@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Calculator</title>
+</head>
+<body>
+   <div class="calculator__Container">
+    <h2>Calculator</h2>
+    <div class="calculator">
+        <div class="calculator__Output">
+           
+           <div class="calculator__calculation__output ">
+               <h5 class="calculation__Operation"></h5>
+           </div>
+           <div class="calculator__calculation__output actual__output"></div>
+        </div>
+        <hr>
+        <div class="calculator__Input buttons">
+            <div class="button deleteAll">C</div>
+            <div class="button">/</div>
+            <div class="button">*</div>
+            <div class="button deletion">&larr;</div>
+            <div class="button">7</div>
+            <div class="button">8</div>
+            <div class="button">9</div>
+            <div class="button">-</div>
+            <div class="button">4</div>
+            <div class="button">5</div>
+            <div class="button">6</div>
+            <div class="button">+</div>
+            <div class="button">1</div>
+            <div class="button">2</div>
+            <div class="button">3</div>
+            <div class="button">.</div>
+            <div class="button">(</div>
+            <div class="button">0</div>
+            <div class="button">)</div>
+            <div id="equal" class="button">=</div>
+        </div>
+    </div>
+   </div>
+</body>
+
+<script>
+    let deletion=document.getElementsByClassName("deletion")[0]// Elenmet 🔙 to delete the operation character
+    let actualOutput=document.getElementsByClassName("actual__output")[0]// Element which show the output to the User
+    let buttons=document.querySelectorAll(".button")// returns array of all buttons
+    let operationArray=buttons
+    let operationField=document.getElementsByClassName("calculation__Operation")// string which contains the Expression to be evaluted 
+    let deleteAll=document.getElementsByClassName("deleteAll")[0]// button that clear everything on display
+    let calculate=document.getElementById("equal")//button that calculates the output for expression
+    // calculate the Expression and check if expression is valid using try catch block
+    calculate.addEventListener("click",()=>{
+        try{
+            actualOutput.textContent=eval(operationField[0].textContent)
+            operationField[0].textContent=actualOutput.textContent
+        }catch{
+            alert("invalid Input")
+        }
+    })
+    // logic to clear the display i.e setting the innerText of operation field and output to empty String
+    deleteAll.addEventListener("click",()=>{
+        operationField[0].textContent="";
+        actualOutput.textContent=""
+    })
+    // logic to append the operation field to inputed expression 
+      operationArray.forEach((value,key)=>{
+         value.addEventListener("click",()=>{
+              if(key!=0 && key!=3 && key!=19){
+                 operationField[0].textContent+=value.textContent
+              }    
+         },false)
+      })
+    //delete single character from operation Field 
+    deletion.addEventListener("click",()=>{
+        operationField[0].textContent=operationField[0].textContent.slice(0,operationField[0].textContent.length-1)
+    })
+     
+</script>
+</html>
